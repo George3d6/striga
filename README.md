@@ -1,6 +1,6 @@
-```json
- WARNING: This library is incompleted and the code hasn't been reivewd. The present implementation may work as intended for myself, but, use at your own risk, especially if you plan on using it with 3rd party strings such as folly:String, AWS::String or QString
-```
+
+### WARNING: This library is incomplete and the code hasn't been fully reviewed or approved by anyone. The present implementation may work as intended for myself, but, use at your own risk, especially if you plan on using it with 3rd party strings such as folly:String, AWS::String or QString
+
 
 # Striga
 
