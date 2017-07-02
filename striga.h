@@ -55,7 +55,31 @@ void trim_right(String& original, const black_magic::dont_deduce_t<String>& patt
             break;
         }
     }
-    original.resize(trim_position);
+    //original.resize(trim_position);
+    original.erase(original.begin() + trim_position, original.end());
+}
+
+template <class String>
+void trim_left(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
+    auto trim_position = 0;
+    for(typename String::size_type i = 1; i <= original.size(); i++) {
+        String purge{};
+#ifdef RESERVER_SPACE_OPTIMIZATION
+        purge.reserve(i);
+#endif
+        purge.reserve(i * pattern.size());
+        //@TODO: Look into using std::generate
+        for(typename String::size_type n = 0; n < i; n++) {
+            purge += pattern;
+        }
+        auto position = original.find(purge);
+        if(position == 0 && (int(i) <= nr || nr < 0) && position != String::npos) {
+            trim_position = purge.size();
+        } else {
+            break;
+        }
+    }
+    original.erase(original.begin(), original.begin() + trim_position);
 }
 
 }
@@ -111,34 +135,16 @@ bool contains(const String& find_in, const black_magic::dont_deduce_t<String>& p
 
 template <class String>
 String trim_right(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
-
     String copy = original;
     mut::trim_right(copy, pattern, nr);
     return copy;
-
 }
 
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
-    auto trim_position = 0;
-    for(typename String::size_type i = 1; i <= original.size(); i++) {
-        String purge{};
-#ifdef RESERVER_SPACE_OPTIMIZATION
-        purge.reserve(i);
-#endif
-        purge.reserve(i * pattern.size());
-        //@TODO: Look into using std::generate
-        for(typename String::size_type n = 0; n < i; n++) {
-            purge += pattern;
-        }
-        auto position = original.find(purge);
-        if(position == 0 && (int(i) <= nr || nr < 0) && position != String::npos) {
-            trim_position = purge.size();
-        } else {
-            break;
-        }
-    }
-    return original.substr(trim_position, original.size() - 1);
+    String copy = original;
+     mut::trim_left(copy, pattern, nr);
+    return copy;
 }
 
 //How do these two work with non Latin/Greek characters ?
