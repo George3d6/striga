@@ -1,16 +1,18 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-#include<iostream>
+#include <iostream>
 #include <type_traits>
 
-#include<cctype>
+#include <cctype>
 
 namespace striga {
 
 namespace black_magic {
 
 /*
+ * For credit where creidt is due, this pattern was explained to me by Barry over at SO:
+ * https://stackoverflow.com/questions/44834415/implicit-template-type-deduction-with-two-arguments-of-different-types/44834741#44834741
  * Used to place the type T in a non deduceable context
  * Better than using decltype(first) because it comes without the const qualifier (or lack thereof) and & / &&
  */
