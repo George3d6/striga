@@ -6,7 +6,7 @@ set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCMAKE_BUILD_TYPE=Debug")
-SET(CMAKE_CXX_FLAGS "--std=c++17 -O0 -Wall -Wpedantic -Wextra -pedantic-errors -Werror")
+SET(CMAKE_CXX_FLAGS "--std=c++17 -O0 -Wall -Wpedantic -Wextra -pedantic-errors -Werror -fno-sanitize=all")
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g2")
