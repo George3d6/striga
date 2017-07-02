@@ -39,10 +39,10 @@ void to_uppercase_ASCII(String& original) {
 template <class String>
 void trim_right(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = original.size();
-     for(typename String::size_type i = 1; i <= original.size(); i++) {
+    for(typename String::size_type i = 1; i <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
-    purge.reserve(i * pattern.size());
+        purge.reserve(i * pattern.size());
 #endif
         //@TODO: Look into using std::generate
         for(typename String::size_type n = 0; n < i; n++) {
@@ -50,12 +50,12 @@ void trim_right(String& original, const black_magic::dont_deduce_t<String>& patt
         }
         auto position = original.rfind(purge);
         if(position + purge.size() == original.size() && (int(i) <= nr || nr < 0) && position != String::npos)  {
-             trim_position = position;
+            trim_position = position;
         } else {
             break;
         }
-     }
-     original.resize(trim_position);
+    }
+    original.resize(trim_position);
 }
 
 }
@@ -74,9 +74,9 @@ Container<String> split(const String& to_split, const black_magic::dont_deduce_t
     return parts;
 }
 
-template <template<class...>class Container, class String>
-String join_container(const Container<String>& container, const black_magic::dont_deduce_t<String>& join_with) {
-    String holder{};
+template <class Container>
+auto join_container(const Container& container, const typename Container::value_type& join_with) {
+    typename Container::value_type holder{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
     holder.reserve(2*container.begin()->size()*container.size());
 #endif
@@ -121,10 +121,10 @@ String trim_right(const String& original, const black_magic::dont_deduce_t<Strin
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = 0;
-     for(typename String::size_type i = 1; i <= original.size(); i++) {
+    for(typename String::size_type i = 1; i <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
-    purge.reserve(i);
+        purge.reserve(i);
 #endif
         purge.reserve(i * pattern.size());
         //@TODO: Look into using std::generate
@@ -137,8 +137,8 @@ String trim_left(const String& original, const black_magic::dont_deduce_t<String
         } else {
             break;
         }
-     }
-     return original.substr(trim_position, original.size() - 1);
+    }
+    return original.substr(trim_position, original.size() - 1);
 }
 
 //How do these two work with non Latin/Greek characters ?

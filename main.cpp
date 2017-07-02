@@ -178,7 +178,7 @@ void test_suite() {
 
 int main() {
 
-//#define RESERVER_SPACE_OPTIMIZATION //Uncompent to make sure the macro enabled version also works
+    //#define RESERVER_SPACE_OPTIMIZATION //Uncompent to make sure the macro enabled version also works
 
     test_suite<std::list>();
     test_suite<std::vector>();
