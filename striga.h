@@ -77,7 +77,6 @@ template <template<class...>class Container = std::vector, class String>
 String join_container(const Container<String>& container, const black_magic::dont_deduce_t<String>& join_with) {
     String holder{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
-    std::cout << "\n\n\n\n\n\nOOOOOOOOOOOO\n\n\n\n\n";
     holder.reserve(2*container.begin()->size()*container.size());
 #endif
     //Faster then comparing iterator addresses
