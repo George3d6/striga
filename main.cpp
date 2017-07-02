@@ -184,6 +184,7 @@ int main() {
     test_suite<std::vector>();
     test_suite<std::deque>();
 
+    /// striga::split
     std::string test1{"I shall be split at whitespace"};
     std::deque<std::string> container1 = striga::split<std::deque>(test1, " ");
     for(const auto& element : container1) {
@@ -191,7 +192,7 @@ int main() {
     }
 
     //Readme example
-
+    /// striga::remove && striga::replace
     std::wstring test2{L"I don't need the word need, I need the word greed"};
     auto result_replace = striga::replace(test2, L"need", L"greed");
     std::wcout << result_replace << std::endl;
@@ -200,12 +201,12 @@ int main() {
     auto result_remove = striga::remove(test3, u"need");
     assert(result_remove == u"I don't  the word ");
 
-
+    /// striga::trim_left && striga::trim_right
     std::u32string trimme = U"   I have 3 whitespaces in the beginging";
     auto trimed = striga::trim_left(trimme, U" ");
     assert(trimed == U"I have 3 whitespaces in the beginging");
 
-
+    /// striga::to_uppercase_ASCII && striga::to_lowercase_ASCII
     std::string uplow{"ab12cD"};
     assert(striga::to_uppercase_ASCII(uplow) == std::string{"AB12CD"});
     assert(striga::to_lowercase_ASCII(uplow) == std::string{"ab12cd"});
@@ -217,5 +218,10 @@ int main() {
     auto lower_greek = striga::to_lowercase_ASCII(greek);
     assert(lower_greek == std::string{"αβΓΘ"});
 
+    /// striga::join_container
+    std::vector<std::string> container{"I", "contain", "stuff"};
+    assert(striga::join_container(container, " ") == "I contain stuff" );
 
+    /// striga::contains
+    assert(striga::contains(std::string{"I contain A"}, "A"));
 }

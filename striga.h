@@ -74,7 +74,7 @@ Container<String> split(const String& to_split, const black_magic::dont_deduce_t
 }
 
 template <template<class...>class Container = std::vector, class String>
-String join_container(const Container<String>& container, String uniter) {
+String join_container(const Container<String>& container, const black_magic::dont_deduce_t<String>& join_with) {
     String holder{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
     std::cout << "\n\n\n\n\n\nOOOOOOOOOOOO\n\n\n\n\n";
@@ -84,7 +84,7 @@ String join_container(const Container<String>& container, String uniter) {
     auto is_first = true;
     for(const auto& str : container) {
         if(!is_first)
-            holder += uniter + str;
+            holder += join_with + str;
         else
             holder += str;
         is_first = false;
