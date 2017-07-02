@@ -39,17 +39,17 @@ void to_uppercase_ASCII(String& original) {
 template <class String>
 void trim_right(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = original.size();
-     for(int64_t i = 1; i >= 0 && size_t(i) <= original.size(); i++) {
+     for(typename String::size_type i = 1; i <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
     purge.reserve(i * pattern.size());
 #endif
         //@TODO: Look into using std::generate
-        for(auto n = 0; n < i; n++) {
+        for(typename String::size_type n = 0; n < i; n++) {
             purge += pattern;
         }
         auto position = original.rfind(purge);
-        if(position + purge.size() == original.size() && (i <= nr || nr < 0) && position != String::npos)  {
+        if(position + purge.size() == original.size() && (int(i) <= nr || nr < 0) && position != String::npos)  {
              trim_position = position;
         } else {
             break;
@@ -121,18 +121,18 @@ String trim_right(const String& original, const black_magic::dont_deduce_t<Strin
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = 0;
-     for(int64_t i = 1; i >=0 && size_t(i) <= original.size(); i++) {
+     for(typename String::size_type i = 1; i <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
     purge.reserve(i);
 #endif
         purge.reserve(i * pattern.size());
         //@TODO: Look into using std::generate
-        for(auto n = 0; n < i; n++) {
+        for(typename String::size_type n = 0; n < i; n++) {
             purge += pattern;
         }
         auto position = original.find(purge);
-        if(position == 0 && (i <= nr || nr < 0) && position != String::npos) {
+        if(position == 0 && (int(i) <= nr || nr < 0) && position != String::npos) {
             trim_position = purge.size();
         } else {
             break;
