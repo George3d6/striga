@@ -9,7 +9,15 @@ If you wish to request some functionality be added to the library feel free to o
 
 ## Usage
 
-Include ``` striga.h ``` in your project.
+WARNING: This library is incompleted and the code hasn't been reivewd. The present functionality should work but for now use at your own risk, especially if you plan on using it with 3rd party strings such as folly:String, AWS::String or QString
+
+To download:
+
+```bash
+wget https://raw.githubusercontent.com/George3d6/striga/master/striga.h
+```
+
+Now simply include ``` striga.h ``` in your project, the library is composed only of this one header.
 
 Use the functions in the namepsace striga and the namespace striga::mut if you want the mutable versions of
 the functions.
@@ -64,3 +72,5 @@ I'm also quite certain some algorithms need improving... but for that I will hav
 Any contribution in the form of code or reviews is more than weclome, I mainly placed this here in the hopes of getting some code review.
 
 Currently the library is quite small so I think compilation time is not a problem and I can leave it as a header only, rather than annoying people with including and implementation.
+
+Currently the main.cpp file represents the test suite for the library and the striga.h represents the library itself
