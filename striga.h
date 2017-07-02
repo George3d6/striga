@@ -39,12 +39,11 @@ void to_uppercase_ASCII(String& original) noexcept {
 template <class String>
 void trim_right(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = original.size();
-     for(auto i = 1; i <= original.size(); i++) {
+     for(int64_t i = 1; i >= 0 && size_t(i) <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
-    purge.reserve(i);
+    purge.reserve(i * pattern.size());
 #endif
-        purge.reserve(i * pattern.size());
         //@TODO: Look into using std::generate
         for(auto n = 0; n < i; n++) {
             purge += pattern;
@@ -122,7 +121,7 @@ String trim_right(const String& original, const black_magic::dont_deduce_t<Strin
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = 0;
-     for(auto i = 1; i <= original.size(); i++) {
+     for(int64_t i = 1; i >=0 && size_t(i) <= original.size(); i++) {
         String purge{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
     purge.reserve(i);
