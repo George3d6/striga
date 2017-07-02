@@ -74,7 +74,7 @@ Container<String> split(const String& to_split, const black_magic::dont_deduce_t
     return parts;
 }
 
-template <template<class...>class Container = std::vector, class String>
+template <template<class...>class Container, class String>
 String join_container(const Container<String>& container, const black_magic::dont_deduce_t<String>& join_with) {
     String holder{};
 #ifdef RESERVER_SPACE_OPTIMIZATION
