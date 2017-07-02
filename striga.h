@@ -24,12 +24,12 @@ template <class T> using dont_deduce_t = typename dont_deduce<T>::type;
 namespace mut {
 
 template <class String>
-void to_lowercase_ASCII(String& original) noexcept {
+void to_lowercase_ASCII(String& original) {
     std::transform(original.begin(), original.end(), original.begin(), tolower);
 }
 
 template <class String>
-void to_uppercase_ASCII(String& original) noexcept {
+void to_uppercase_ASCII(String& original) {
     std::transform(original.begin(), original.end(), original.begin(), toupper);
 }
 
@@ -144,14 +144,14 @@ String trim_left(const String& original, const black_magic::dont_deduce_t<String
 //How do these two work with non Latin/Greek characters ?
 
 template <class String>
-String to_lowercase_ASCII(const String& original) noexcept {
+String to_lowercase_ASCII(const String& original) {
     String the_copy = original;
     mut::to_lowercase_ASCII(the_copy);
     return the_copy;
 }
 
 template <class String>
-String to_uppercase_ASCII(const String& original) noexcept {
+String to_uppercase_ASCII(const String& original) {
 
     String the_copy = original;
     mut::to_uppercase_ASCII(the_copy);
