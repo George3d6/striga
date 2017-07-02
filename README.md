@@ -1,3 +1,7 @@
+```json
+ WARNING: This library is incompleted and the code hasn't been reivewd. The present implementation may work as intended for myself, but, use at your own risk, especially if you plan on using it with 3rd party strings such as folly:String, AWS::String or QString
+```
+
 # Striga
 
 A basic string manipulation library for C++, implemented in a single header file for ease of inclusion.
@@ -8,8 +12,6 @@ string operation boilerplate from code by providing decently efficient, side-eff
 If you wish to request some functionality be added to the library feel free to open an issue or make a pull request with the desired function interface (or even implementation, if you have the time).
 
 ## Usage
-
-#### WARNING: This library is incompleted and the code hasn't been reivewd. The present implementation may work as intended for myself, but, use at your own risk, especially if you plan on using it with 3rd party strings such as folly:String, AWS::String or QString (&#x1F34E;)
 
 To download:
 
