@@ -33,9 +33,8 @@ void to_uppercase_ASCII(String& original) {
     std::transform(original.begin(), original.end(), original.begin(), toupper);
 }
 
-
-
-//@WEIRD: Decltype doesn't work here, apparently using decltype invalidates the const...
+/// Trims a string inplace, the first argument is returned with a maximum of 'nr' occurances of strings 'pattern' removed from the back of it.
+/// If nr < 0 it removed all occurances (this is the defauly behavior)
 template <class String>
 void trim_right(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = original.size();
@@ -59,6 +58,10 @@ void trim_right(String& original, const black_magic::dont_deduce_t<String>& patt
     original.erase(original.begin() + trim_position, original.end());
 }
 
+
+//WRANNING: Possibly very inefficient
+/// Trims a string inplace, the first argument is returned with a maximum of 'nr' occurances of strings 'pattern' removed from the front of it.
+/// If nr < 0 it removed all occurances (this is the defauly behavior)
 template <class String>
 void trim_left(String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = 0;
@@ -135,16 +138,34 @@ bool contains(const String& find_in, const black_magic::dont_deduce_t<String>& p
 
 template <class String>
 String trim_right(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
+
     String copy = original;
     mut::trim_right(copy, pattern, nr);
     return copy;
+
 }
 
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
-    String copy = original;
-     mut::trim_left(copy, pattern, nr);
-    return copy;
+    auto trim_position = 0;
+    for(typename String::size_type i = 1; i <= original.size(); i++) {
+        String purge{};
+#ifdef RESERVER_SPACE_OPTIMIZATION
+        purge.reserve(i);
+#endif
+        purge.reserve(i * pattern.size());
+        //@TODO: Look into using std::generate
+        for(typename String::size_type n = 0; n < i; n++) {
+            purge += pattern;
+        }
+        auto position = original.find(purge);
+        if(position == 0 && (int(i) <= nr || nr < 0) && position != String::npos) {
+            trim_position = purge.size();
+        } else {
+            break;
+        }
+    }
+    return original.substr(trim_position, original.size() - 1);
 }
 
 //How do these two work with non Latin/Greek characters ?
