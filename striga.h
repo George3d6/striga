@@ -23,11 +23,13 @@ template <class T> using dont_deduce_t = typename dont_deduce<T>::type;
 
 namespace mut {
 
+/// Turns all the ASCII compatible chracters of the string to lowercase
 template <class String>
 void to_lowercase_ASCII(String& original) {
     std::transform(original.begin(), original.end(), original.begin(), tolower);
 }
 
+/// Turns all the ASCII compatible chracters of the string to uppercase
 template <class String>
 void to_uppercase_ASCII(String& original) {
     std::transform(original.begin(), original.end(), original.begin(), toupper);
@@ -87,6 +89,8 @@ void trim_left(String& original, const black_magic::dont_deduce_t<String>& patte
 
 }
 
+//@TODO: Make an MSVC compaible implementation
+/// Split a string based on a delimiter and return a container with the parts (delimiter not included)
 template <template<class...>class Container = std::vector, class String>
 Container<String> split(const String& to_split, const black_magic::dont_deduce_t<String>& delimiter) {
     auto current_position = 0;
@@ -101,6 +105,7 @@ Container<String> split(const String& to_split, const black_magic::dont_deduce_t
     return parts;
 }
 
+/// Unite a container into a string using the second argument
 template <class Container>
 auto join_container(const Container& container, const typename Container::value_type& join_with) {
     typename Container::value_type holder{};
@@ -119,23 +124,30 @@ auto join_container(const Container& container, const typename Container::value_
     return holder;
 }
 
+/// Replace the occurances of 'pattern' in 'original' with 'replacement'
 template <class String>
 String replace(const String& original, const black_magic::dont_deduce_t<String>& pattern, const black_magic::dont_deduce_t<String>& replacement) {
     auto container = striga::split(original, pattern);
     return striga::join_container(container, replacement);
 }
 
+/// Replace the occurances of 'pattern' in 'original' with nothing
 template <class String>
 String remove(const String& original, const black_magic::dont_deduce_t<String>& pattern) {
     const String default_value;
     return striga::replace(original, pattern, default_value);
 }
 
+/// Check if a string contains 'pattern' and returns true if it does and false if it doesn't
 template <class String>
 bool contains(const String& find_in, const black_magic::dont_deduce_t<String>& pattern) noexcept {
     return find_in.find(pattern) != String::npos;
 }
 
+
+/// Trims a string, the first argument is returned with a maximum of 'nr' occurances of strings 'pattern' removed from the back of it.
+/// If nr < 0 it removed all occurances (this is the defauly behavior)
+/// A trimed string is returned and the original is not modified
 template <class String>
 String trim_right(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
 
@@ -145,6 +157,9 @@ String trim_right(const String& original, const black_magic::dont_deduce_t<Strin
 
 }
 
+/// Trims a string, the first argument is returned with a maximum of 'nr' occurances of strings 'pattern' removed from the front of it.
+/// If nr < 0 it removed all occurances (this is the defauly behavior)
+/// A trimed string is returned and the original is not modified
 template <class String>
 String trim_left(const String& original, const black_magic::dont_deduce_t<String>& pattern, int nr = -1) {
     auto trim_position = 0;
@@ -170,6 +185,7 @@ String trim_left(const String& original, const black_magic::dont_deduce_t<String
 
 //How do these two work with non Latin/Greek characters ?
 
+/// Return a string with all the ASCII compatible chracters of the original string to lowercase
 template <class String>
 String to_lowercase_ASCII(const String& original) {
     String the_copy = original;
@@ -177,6 +193,7 @@ String to_lowercase_ASCII(const String& original) {
     return the_copy;
 }
 
+/// Return a string with all the ASCII compatible chracters of the original string to uppercase
 template <class String>
 String to_uppercase_ASCII(const String& original) {
 
